@@ -27,6 +27,7 @@ namespace SiteVitrineEbeniste.Models
         public City City { get; set; }
 
         public List<Message> SentMessages { get; set; }
+
         public List<Message> ReceivedMessages { get; set; }
 
         public List<Article> PublishedArticles { get; set; }

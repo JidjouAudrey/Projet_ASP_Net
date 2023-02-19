@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using SiteVitrineEbeniste.Datas;
 
 namespace SiteVitrineEbeniste
 {
@@ -23,6 +25,13 @@ namespace SiteVitrineEbeniste
             builder.Services.AddControllersWithViews();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<AppDbContext>
+                (
+                    options => options.UseSqlServer
+                    (
+                        builder.Configuration.GetConnectionString("DefaultConnectionString")
+                    )
+                );
         }
 
         public static void Configure(WebApplication app)
