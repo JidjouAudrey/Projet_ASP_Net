@@ -27,7 +27,7 @@ namespace SiteVitrineEbeniste.Datas
                 }
 
                 //Ajouter cities
-                if(context.Cities.Any())
+                if(!context.Cities.Any())
                 {
                     context.Cities.AddRange(new List<City>()
                     {
@@ -88,12 +88,22 @@ namespace SiteVitrineEbeniste.Datas
                             UrlImage="https://media.istockphoto.com/id/172931561/fr/photo/centre-g%C3%A9riatrique-chambre.jpg?b=1&s=170667a&w=0&k=20&c=MLmqeKn4Bcf1_frKHhPuyM0L3M2mq_rI7ikLDmWDrto=",
                             Price=150000,
                             PublishedDate= DateTime.Now,
+                        },
+                        new Article()
+                        {
+                            Name="Range Tout",
+                            Category= Category.Fabrication,
+                            Material= Material.Ebene,
+                            Description = "fait a base de bois rouge du sud",
+                            UrlImage="https://media.istockphoto.com/id/1444357949/fr/photo/bo%C3%AEte-%C3%A0-bijoux-en-bois-antique-isol%C3%A9e-sur-fond-blanc.jpg?b=1&s=170667a&w=0&k=20&c=Pzo8su3ti8YUsJGzlHUt9yteYGQ2FTgAaOAiztqblcY=",
+                            Price=90000,
+                            PublishedDate= DateTime.Now,
                         }
                     });
                 }
 
                 //Ajouter userArticles
-                if (context.UserArticles.Any()) 
+                if (!context.UserArticles.Any()) 
                 {
                     context.UserArticles.AddRange(new List<UserArticle>()
                     {
@@ -102,17 +112,59 @@ namespace SiteVitrineEbeniste.Datas
                             UserId= 1,
                             ArticleId= 1,
                             ViewedPeriod= DateTime.Now.AddDays(1),
+                        },
+                        new UserArticle()
+                        {
+                            UserId= 2,
+                            ArticleId= 2,
+                            ViewedPeriod=DateTime.Now.AddDays(2),
+                        },
+                        new UserArticle()
+                        {
+                            UserId= 2,
+                            ArticleId= 1,
+                            ViewedPeriod= DateTime.Now.AddDays(1),
                         }
                     });
                 }
 
-                if(context.Messages.Any())
+                if(!context.Messages.Any())
                 {
                     context.Messages.AddRange(new List<Message>()
                     {
                         new Message()
                         {
-                             Content="cette armoir coute combien"
+                             SenderId= 2,
+                             Content="j'aimerais connaitre vos modaliter de renovation",
+                             ReceiverId=1,
+                             SentDate= DateTime.Now.AddDays(-2),
+                        },
+                        new Message()
+                        {
+                            SenderId= 1,
+                            Content="Tout depend de ce que vous voulez renovez",
+                            ReceiverId=2,
+                            SentDate= DateTime.Now.AddDays(-2).AddHours(3),
+                        },
+                        new Message()
+                        {
+                             SenderId= 2,
+                             Content="Merci",
+                             ReceiverId=1,
+                             SentDate= DateTime.Now.AddDays(-2).AddHours(4),
+                        }
+                    });
+                }
+                if (!context.Comments.Any())
+                {
+                    context.Comments.AddRange(new List<Comment>
+                    {
+                        new Comment()
+                        {
+                            ArticleId= 1,
+                            CommenterId=2,
+                            Comments="tres jolie cette penderie",
+                            CommentDate= DateTime.Now.AddDays(3),
                         }
                     });
                 }
