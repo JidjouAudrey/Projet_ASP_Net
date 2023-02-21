@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SiteVitrineEbeniste.Migrations
 {
-<<<<<<<< HEAD:SiteVitrineEbeniste/SiteVitrineEbeniste/Migrations/20230221123847_KengniFirstMigration.cs
-    public partial class KengniFirstMigration : Migration
-========
     public partial class PeughouiaFirstMigration : Migration
->>>>>>>> 04ec09dde3348bb856117c1894c89c3ee5d34cb1:SiteVitrineEbeniste/SiteVitrineEbeniste/Migrations/20230221124851_PeughouiaFirstMigration.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -123,12 +119,7 @@ namespace SiteVitrineEbeniste.Migrations
                         name: "FK_Messages_Users_SenderId",
                         column: x => x.SenderId,
                         principalTable: "Users",
-<<<<<<<< HEAD:SiteVitrineEbeniste/SiteVitrineEbeniste/Migrations/20230221123847_KengniFirstMigration.cs
-                        principalColumn: "Id",
-                        onDelete : ReferentialAction.Cascade);
-========
-                        principalColumn: "Id");
->>>>>>>> 04ec09dde3348bb856117c1894c89c3ee5d34cb1:SiteVitrineEbeniste/SiteVitrineEbeniste/Migrations/20230221124851_PeughouiaFirstMigration.cs
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
