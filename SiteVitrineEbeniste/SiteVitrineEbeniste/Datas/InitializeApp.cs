@@ -101,7 +101,7 @@ namespace SiteVitrineEbeniste.Datas
                     {
                         new Message()
                         {
-                             Containt="cette armoir coute combien"
+                             Content="cette armoir coute combien"
                         }
                     });
                 }

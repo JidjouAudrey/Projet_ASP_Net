@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SiteVitrineEbeniste.Models;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SiteVitrineEbeniste.Datas
 {
@@ -16,17 +15,23 @@ namespace SiteVitrineEbeniste.Datas
                 us.ArticleId
             });
 
-            modelBuilder.Entity<UserArticle>().HasOne(us => us.Viewer).
-                WithMany(viewer => viewer.UserArticles).HasForeignKey(viewer => viewer.UserId);
+            modelBuilder.Entity<UserArticle>().HasOne(ua => ua.Viewer).
+                WithMany(viewer => viewer.UserArticles).HasForeignKey(ua => ua.UserId);
             modelBuilder.Entity<UserArticle>().HasOne(us => us.Article).
-                WithMany(article => article.UserArticles).HasForeignKey(article => article.ArticleId);
+                WithMany(article => article.UserArticles).HasForeignKey(ua => ua.ArticleId);
+            modelBuilder.Entity<Message>().HasOne(message => message.Sender).
+                WithMany(sender => sender.SentMessages).HasForeignKey(message => message.SenderId).
+                OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Message>().HasOne(message => message.Receiver).
+                WithMany(receiver => receiver.ReceivedMessages).HasForeignKey(message => message.ReceiverId).
+                OnDelete(DeleteBehavior.NoAction);
         }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<Article> Articles { get; set; }
         public DbSet<UserArticle> UserArticles { get; set; }
     }
 }

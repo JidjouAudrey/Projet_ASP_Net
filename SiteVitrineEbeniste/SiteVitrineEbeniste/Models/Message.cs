@@ -8,17 +8,17 @@ namespace SiteVitrineEbeniste.Models
         [Key]
 
         public int Id { get; set; }
+
         [Required]
-        public string Containt { get; set; }
+        public string Content { get; set; }
+
         [Required]
         public DateTime SentDate { get; set; }
         
         public int SenderId { get; set; }
-        [ForeignKey("SenderId")]
         public User Sender { get; set; }
 
         public int ReceiverId { get; set; }
-        [ForeignKey("ReceiverId")]
         public User Receiver { get; set; }
 
     }
