@@ -29,7 +29,7 @@ namespace SiteVitrineEbeniste
                 (
                     options => options.UseSqlServer
                     (
-                        builder.Configuration.GetConnectionString("PeughouiaConnectionString")
+                        builder.Configuration.GetConnectionString("DefaultConnectionString")
                     )
                 );
         }
