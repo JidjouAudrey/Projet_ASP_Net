@@ -17,8 +17,7 @@ namespace SiteVitrineEbeniste.Models
         public string Password { get; set; }
         [Required]
         public string Phone { get; set; }
-        [Required]
-        public string  Biography { get; set; }
+        public string?  Biography { get; set; }
         [Required]
         public bool IsAdmin { get; set; }
 

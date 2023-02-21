@@ -29,7 +29,7 @@ namespace SiteVitrineEbeniste
                 (
                     options => options.UseSqlServer
                     (
-                        builder.Configuration.GetConnectionString("PeughouiaConnectionString")
+                        builder.Configuration.GetConnectionString("DesktopConnectionString")
                     )
                 );
         }
@@ -54,7 +54,9 @@ namespace SiteVitrineEbeniste
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
+            AppInitializer.Seed(app);
         }
+
     }
 }
 

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ASP DOTNET & ADO DOTNET\\Projets\\Theme4SiteVitrine\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj": {}
+    "D:\\2.COUR_ASP-ADO\\Projet Vitrine\\Projet_ASP_Net\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj": {}
   },
   "projects": {
-    "E:\\ASP DOTNET & ADO DOTNET\\Projets\\Theme4SiteVitrine\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj": {
+    "D:\\2.COUR_ASP-ADO\\Projet Vitrine\\Projet_ASP_Net\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ASP DOTNET & ADO DOTNET\\Projets\\Theme4SiteVitrine\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj",
+        "projectUniqueName": "D:\\2.COUR_ASP-ADO\\Projet Vitrine\\Projet_ASP_Net\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj",
         "projectName": "SiteVitrineEbeniste",
-        "projectPath": "E:\\ASP DOTNET & ADO DOTNET\\Projets\\Theme4SiteVitrine\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "E:\\ASP DOTNET & ADO DOTNET\\Projets\\Theme4SiteVitrine\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\obj\\",
+        "projectPath": "D:\\2.COUR_ASP-ADO\\Projet Vitrine\\Projet_ASP_Net\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\SiteVitrineEbeniste.csproj",
+        "packagesPath": "C:\\Users\\FRED PEUGH'S\\.nuget\\packages\\",
+        "outputPath": "D:\\2.COUR_ASP-ADO\\Projet Vitrine\\Projet_ASP_Net\\SiteVitrineEbeniste\\SiteVitrineEbeniste\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\FRED PEUGH'S\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -74,6 +74,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.13, 6.0.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -82,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -146,7 +146,6 @@ namespace SiteVitrineEbeniste.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Biography")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CityId")
@@ -192,6 +191,9 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ViewedPeriod")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("UserId", "ArticleId");
 
