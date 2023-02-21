@@ -2,6 +2,7 @@
 {
     public enum Material
     {
-        Ebene=1
+        Ebene=1,
+        bois_blanc
     }
 }
