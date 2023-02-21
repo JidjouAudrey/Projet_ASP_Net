@@ -61,7 +61,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.City", b =>
@@ -83,7 +83,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Country", b =>
@@ -104,7 +104,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Message", b =>
@@ -134,7 +134,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.User", b =>
@@ -182,7 +182,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.UserArticle", b =>
@@ -197,7 +197,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("UserArticles");
+                    b.ToTable("UserArticles", (string)null);
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Article", b =>
@@ -227,13 +227,13 @@ namespace SiteVitrineEbeniste.Migrations
                     b.HasOne("SiteVitrineEbeniste.Models.User", "Receiver")
                         .WithMany("ReceivedMessages")
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("SiteVitrineEbeniste.Models.User", "Sender")
                         .WithMany("SentMessages")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Receiver");
