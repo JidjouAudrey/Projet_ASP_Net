@@ -21,10 +21,9 @@ namespace SiteVitrineEbeniste.Datas
                 WithMany(article => article.UserArticles).HasForeignKey(ua => ua.ArticleId);
             modelBuilder.Entity<Message>().HasOne(message => message.Sender).
                 WithMany(sender => sender.SentMessages).HasForeignKey(message => message.SenderId).
-                OnDelete(DeleteBehavior.NoAction);
+                OnDelete(DeleteBehavior.ClientCascade);
             modelBuilder.Entity<Message>().HasOne(message => message.Receiver).
-                WithMany(receiver => receiver.ReceivedMessages).HasForeignKey(message => message.ReceiverId).
-                OnDelete(DeleteBehavior.NoAction);
+                WithMany(receiver => receiver.ReceivedMessages).HasForeignKey(message => message.ReceiverId);
         }
 
         public DbSet<User> Users { get; set; }
