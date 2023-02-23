@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SiteVitrineEbeniste.Datas;
 
@@ -11,9 +12,10 @@ using SiteVitrineEbeniste.Datas;
 namespace SiteVitrineEbeniste.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230223204549_DesktopMigrationOne")]
+    partial class DesktopMigrationOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.City", b =>
@@ -83,7 +85,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Comment", b =>
@@ -105,7 +107,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Country", b =>
@@ -126,7 +128,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Message", b =>
@@ -156,7 +158,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.User", b =>
@@ -200,7 +202,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.UserArticle", b =>
@@ -218,7 +220,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("UserArticles", (string)null);
+                    b.ToTable("UserArticles");
                 });
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Article", b =>

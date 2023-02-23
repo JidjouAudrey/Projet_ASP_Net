@@ -10,16 +10,11 @@ namespace SiteVitrineEbeniste.Datas
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserArticle>().HasKey(us => new
-            {
-                us.UserId,
-                us.ArticleId
-            });
-
             modelBuilder.Entity<UserArticle>().HasOne(ua => ua.Viewer).
                 WithMany(viewer => viewer.UserArticles).HasForeignKey(ua => ua.UserId);
             modelBuilder.Entity<UserArticle>().HasOne(us => us.Article).
                 WithMany(article => article.UserArticles).HasForeignKey(ua => ua.ArticleId);
+            modelBuilder.Entity<UserArticle>().HasKey(new string[] { "UserId", "ArticleId", "ViewedPeriod" });
             modelBuilder.Entity<Message>().HasOne(message => message.Sender).
                 WithMany(sender => sender.SentMessages).HasForeignKey(message => message.SenderId);
             modelBuilder.Entity<Message>().HasOne(message => message.Receiver).
@@ -30,7 +25,7 @@ namespace SiteVitrineEbeniste.Datas
                 OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Comment>().HasOne(aComment => aComment.Article).
                 WithMany(article => article.Comments).HasForeignKey(aComment => aComment.ArticleId);
-            modelBuilder.Entity<Comment>().HasKey(new string[] { "CommenterId", "ArticleId"});
+            modelBuilder.Entity<Comment>().HasKey(new string[] { "CommenterId", "ArticleId", "CommentDate" });
         }
 
         public DbSet<User> Users { get; set; }
