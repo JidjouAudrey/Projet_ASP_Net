@@ -4,7 +4,7 @@ namespace SiteVitrineEbeniste.Datas.Services.User
 {
     public class UserServices : IUserServices
     {
-        private readonly AppDbContext dbContext;
+        private AppDbContext dbContext;
 
         public UserServices(AppDbContext dbContext)
         {
@@ -24,13 +24,25 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             }
         }
 
-        public async Task<bool> Exists(string username, string password)
+        public int CountViewers()
         {
             try
             {
-                return await dbContext.Users.FirstOrDefaultAsync
+                return dbContext.Users.Count(user => user.IsAdmin == false);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public bool Exists(string email, string password)
+        {
+            try
+            {
+                return dbContext.Users.FirstOrDefault
                     (
-                        user => user.Name == username &&
+                        user => user.Email == email &&
                                 user.Password == password
                     ) != null;
             }
@@ -73,12 +85,29 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             }
         }
 
+        public Models.User? Find(string email, string password)
+        {
+            try
+            {
+                return dbContext.Users.Find(delegate (Models.User user)
+                {
+                    if (user.Email == email && user.Password == password)
+                        return user;
+                    return null;
+                });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
         public IEnumerable<Models.User> GetAllViewers()
         {
             try
             {
                 return dbContext.Users.ToList().FindAll
-                    (user => user.IsAdmin = false);
+                    (user => user.IsAdmin == false);
             }
             catch(Exception ex)
             {
@@ -90,8 +119,13 @@ namespace SiteVitrineEbeniste.Datas.Services.User
         {
             try
             {
-                dbContext.Users.Remove(viewer);
-                dbContext.SaveChanges();
+                if (!Exists(viewer.Id))
+                    throw new Exception("Utilisateur inexistant !");
+                else
+                {
+                    dbContext.Users.Remove(viewer);
+                    dbContext.SaveChanges();
+                }
             }
             catch(Exception ex)
             {
@@ -106,7 +140,7 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             try
             {
                 if (!Exists(id))
-                    return null;
+                    throw new Exception("Utilisateur inexistant !");
                 else
                 {
                     dbContext.Users.Update(viewer);
