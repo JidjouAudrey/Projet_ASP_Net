@@ -8,7 +8,8 @@ namespace SiteVitrineEbeniste.Models
         public int UserId { get; set; } 
         public User Viewer { get; set; }
         public int ArticleId { get; set; }
-
         public Article Article { get; set; }
+
+        public DateTime ViewedPeriod { get; set; }
     }
 }

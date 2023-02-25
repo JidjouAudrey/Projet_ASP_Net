@@ -31,5 +31,7 @@ namespace SiteVitrineEbeniste.Models
 
         public List<UserArticle> UserArticles { get; set; }
 
+        public List<Comment>? Comments { get; set; }
+
     }
 }

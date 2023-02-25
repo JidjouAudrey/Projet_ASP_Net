@@ -86,6 +86,28 @@ namespace SiteVitrineEbeniste.Migrations
                     b.ToTable("Cities", (string)null);
                 });
 
+            modelBuilder.Entity("SiteVitrineEbeniste.Models.Comment", b =>
+                {
+                    b.Property<int>("CommenterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CommentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CommenterId", "ArticleId", "CommentDate");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("Comments", (string)null);
+                });
+
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -146,13 +168,9 @@ namespace SiteVitrineEbeniste.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Biography")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -180,7 +198,7 @@ namespace SiteVitrineEbeniste.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Users", (string)null);
                 });
@@ -193,7 +211,10 @@ namespace SiteVitrineEbeniste.Migrations
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "ArticleId");
+                    b.Property<DateTime>("ViewedPeriod")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "ArticleId", "ViewedPeriod");
 
                     b.HasIndex("ArticleId");
 
@@ -222,18 +243,37 @@ namespace SiteVitrineEbeniste.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("SiteVitrineEbeniste.Models.Comment", b =>
+                {
+                    b.HasOne("SiteVitrineEbeniste.Models.Article", "Article")
+                        .WithMany("Comments")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SiteVitrineEbeniste.Models.User", "Commenter")
+                        .WithMany("Comments")
+                        .HasForeignKey("CommenterId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Commenter");
+                });
+
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Message", b =>
                 {
                     b.HasOne("SiteVitrineEbeniste.Models.User", "Receiver")
                         .WithMany("ReceivedMessages")
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("SiteVitrineEbeniste.Models.User", "Sender")
                         .WithMany("SentMessages")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Receiver");
@@ -245,7 +285,7 @@ namespace SiteVitrineEbeniste.Migrations
                 {
                     b.HasOne("SiteVitrineEbeniste.Models.City", "City")
                         .WithMany("Users")
-                        .HasForeignKey("CountryId")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -273,6 +313,8 @@ namespace SiteVitrineEbeniste.Migrations
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.Article", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("UserArticles");
                 });
 
@@ -288,6 +330,8 @@ namespace SiteVitrineEbeniste.Migrations
 
             modelBuilder.Entity("SiteVitrineEbeniste.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("PublishedArticles");
 
                     b.Navigation("ReceivedMessages");
