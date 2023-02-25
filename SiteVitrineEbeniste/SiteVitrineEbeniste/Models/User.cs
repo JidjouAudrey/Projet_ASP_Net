@@ -25,14 +25,14 @@ namespace SiteVitrineEbeniste.Models
         [ForeignKey("CityId")]
         public City City { get; set; }
 
-        public List<Message>? SentMessages { get; set; }
+        public List<Message> SentMessages { get; set; }
 
-        public List<Message>? ReceivedMessages { get; set; }
+        public List<Message> ReceivedMessages { get; set; }
 
         public List<Article> PublishedArticles { get; set; }
 
         public List<UserArticle> UserArticles { get; set; }
 
-        public List<Comment>? Comments { get; set; } 
+        public List<Comment> Comments { get; set; } 
     }
 }
