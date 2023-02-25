@@ -115,6 +115,31 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             }
         }
 
+        public IEnumerable<Models.Comment> GetComments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Models.Article> GetPublishedArticles()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Models.Message> GetReceivedMessages()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Models.Message> GetSentMessages()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Models.Article> GetViewedArticles()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Remove(Models.User viewer)
         {
             try
