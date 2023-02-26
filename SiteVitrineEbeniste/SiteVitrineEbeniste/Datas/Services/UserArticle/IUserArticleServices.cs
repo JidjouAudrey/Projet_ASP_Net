@@ -2,7 +2,7 @@
 {
     public interface IUserArticleServices
     {
-        Task Add(Models.UserArticle article);
+        Task Add(Models.UserArticle userArticle);
         void Remove(Models.UserArticle article);
         bool Exists(int userId, int articleId, DateTime viewedDate);
         Models.UserArticle? Find(int userId, int articleId, DateTime viewedDate);
