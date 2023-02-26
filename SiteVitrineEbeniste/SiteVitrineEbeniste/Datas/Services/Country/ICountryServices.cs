@@ -12,6 +12,6 @@ namespace SiteVitrineEbeniste.Datas.Services.Country
         bool Exists(string name);
         Models.Country? Find(string name);
         int Count();
-        IEnumerable<Models.Country> GetCities();
+        IEnumerable<Models.City> GetCities(int countryId);
     }
 }
