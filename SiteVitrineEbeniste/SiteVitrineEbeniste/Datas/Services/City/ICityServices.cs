@@ -10,6 +10,6 @@
         bool Exists(string name);
         Models.City? Find(string name);
         int Count();
-        IEnumerable<Models.User> GetUsers();
+        IEnumerable<Models.User> GetUsers(int cityId);
     }
 }
