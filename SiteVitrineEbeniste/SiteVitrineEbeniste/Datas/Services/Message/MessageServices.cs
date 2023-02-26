@@ -53,6 +53,30 @@
             }
         }
 
+        public IEnumerable<Models.Message> FilterByReceiverId(int receiverId)
+        {
+            try
+            {
+                return GetAll().Where(message => message.ReceiverId == receiverId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public IEnumerable<Models.Message> FilterBySenderId(int senderId)
+        {
+            try
+            {
+                return GetAll().Where(message => message.SenderId == senderId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
         public Models.Message? Find(int senderId, int receiverId, DateTime sentDate, string content)
         {
             try
