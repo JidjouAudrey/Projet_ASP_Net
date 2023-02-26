@@ -8,9 +8,9 @@
         bool Exists(string name);
         bool Exists(int id);
         Models.Article? Find(string name);
-        Task<IEnumerable<Models.Article>> GetAll();
+        IEnumerable<Models.Article> GetAll();
         int Count();
-        IEnumerable<Models.User> GetViewers();
-        IEnumerable<Models.Comment> GetComments();
+        IEnumerable<Models.Comment> GetComments(int articleId);
+        IEnumerable<Models.UserArticle> GetViewers(int articleId);
     }
 }
