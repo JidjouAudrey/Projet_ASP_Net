@@ -2,7 +2,7 @@
 
 namespace SiteVitrineEbeniste.Datas.Services.Comment
 {
-    public interface ICommentService
+    public interface ICommentServices
     {
         Task Add(Models.Comment comment);
         void Remove(Models.Comment comment);
