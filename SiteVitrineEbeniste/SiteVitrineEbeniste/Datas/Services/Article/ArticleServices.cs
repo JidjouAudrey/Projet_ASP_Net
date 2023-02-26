@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SiteVitrineEbeniste.Datas.Services.Comment;
+using SiteVitrineEbeniste.Datas.Services.UserArticle;
 using System.Xml.Linq;
 
 namespace SiteVitrineEbeniste.Datas.Services.Article
@@ -7,9 +9,15 @@ namespace SiteVitrineEbeniste.Datas.Services.Article
     {
         private AppDbContext dbContext;
 
+        private CommentServices commentServices;
+
+        private UserArticleServices uaServices;
+
         public ArticleServices(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
+            commentServices = new CommentServices(dbContext);
+            uaServices = new UserArticleServices(dbContext);
         }
 
         public async Task Add(Models.Article article)
@@ -73,11 +81,11 @@ namespace SiteVitrineEbeniste.Datas.Services.Article
             }
         }
 
-        public async Task<IEnumerable<Models.Article>> GetAll()
+        public IEnumerable<Models.Article> GetAll()
         {
             try
             {
-                return await dbContext.Articles.ToListAsync();
+                return dbContext.Articles.ToList();
             }
             catch (Exception ex)
             {
@@ -85,14 +93,30 @@ namespace SiteVitrineEbeniste.Datas.Services.Article
             }
         }
 
-        public IEnumerable<Models.Comment> GetComments()
+        public IEnumerable<Models.Comment> GetComments(int articleId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return commentServices.GetAll().
+                    Where(comment => comment.ArticleId == articleId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
         }
 
-        public IEnumerable<Models.User> GetViewers()
+        public IEnumerable<Models.UserArticle> GetViewers(int articleId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return uaServices.GetAll().
+                    Where(userArticle => userArticle.ArticleId == articleId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
         }
 
         public void Remove(Models.Article article)
