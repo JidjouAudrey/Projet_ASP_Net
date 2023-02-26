@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SiteVitrineEbeniste.Datas.Services.Article;
+using SiteVitrineEbeniste.Datas.Services.Message;
+using SiteVitrineEbeniste.Datas.Services.UserArticle;
 
 namespace SiteVitrineEbeniste.Datas.Services.User
 {
@@ -6,9 +9,18 @@ namespace SiteVitrineEbeniste.Datas.Services.User
     {
         private AppDbContext dbContext;
 
+        private UserArticleServices uaServices;
+
+        private MessageServices messageServices;
+
+        private ArticleServices articleServices;
+
         public UserServices(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
+            uaServices = new UserArticleServices(dbContext);
+            messageServices = new MessageServices(dbContext);
+            articleServices = new ArticleServices(dbContext);
         }
 
         public async Task Add(Models.User viewer)
@@ -106,7 +118,7 @@ namespace SiteVitrineEbeniste.Datas.Services.User
         {
             try
             {
-                return dbContext.Users.ToList().FindAll
+                return GetAll().Where
                     (user => user.IsAdmin == false);
             }
             catch(Exception ex)
@@ -115,29 +127,43 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             }
         }
 
-        public IEnumerable<Models.Comment> GetComments()
+        public IEnumerable<Models.Article> GetPublishedArticles(int publisherId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return articleServices.GetAll().
+                    Where(article => article.PublisherId == publisherId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
         }
 
-        public IEnumerable<Models.Article> GetPublishedArticles()
+        public IEnumerable<Models.Message> GetDiscussion(int senderId, int receiverId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return messageServices.FilterBySenderId(senderId).
+                    Where(message => message.ReceiverId == receiverId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
         }
 
-        public IEnumerable<Models.Message> GetReceivedMessages()
+        public IEnumerable<Models.UserArticle> GetViewedArticles(int userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Models.Message> GetSentMessages()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Models.Article> GetViewedArticles()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return uaServices.GetAll().
+                    Where(userArticle => userArticle.UserId == userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
         }
 
         public void Remove(Models.User viewer)
@@ -174,6 +200,18 @@ namespace SiteVitrineEbeniste.Datas.Services.User
                 }
             }
             catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public IEnumerable<Models.User> GetAll()
+        {
+            try
+            {
+                return dbContext.Users.ToList();
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Erreur : " + ex.Message);
             }
