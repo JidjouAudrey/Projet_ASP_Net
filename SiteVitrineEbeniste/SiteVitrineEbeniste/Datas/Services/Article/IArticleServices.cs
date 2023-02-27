@@ -2,5 +2,15 @@
 {
     public interface IArticleServices
     {
+        Task Add(Models.Article article);
+        void Remove(Models.Article article);
+        Models.Article? Update(int id, Models.Article article);
+        bool Exists(string name);
+        bool Exists(int id);
+        Models.Article? Find(string name);
+        IEnumerable<Models.Article> GetAll();
+        int Count();
+        IEnumerable<Models.Comment> GetComments(int articleId);
+        IEnumerable<Models.UserArticle> GetViewers(int articleId);
     }
 }

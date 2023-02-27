@@ -1,14 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SiteVitrineEbeniste.Datas.Services.Article;
+using SiteVitrineEbeniste.Datas.Services.Message;
+using SiteVitrineEbeniste.Datas.Services.UserArticle;
 
 namespace SiteVitrineEbeniste.Datas.Services.User
 {
     public class UserServices : IUserServices
     {
-        private readonly AppDbContext dbContext;
+        private AppDbContext dbContext;
+
+        private UserArticleServices uaServices;
+
+        private MessageServices messageServices;
+
+        private ArticleServices articleServices;
 
         public UserServices(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
+            uaServices = new UserArticleServices(dbContext);
+            messageServices = new MessageServices(dbContext);
+            articleServices = new ArticleServices(dbContext);
         }
 
         public async Task Add(Models.User viewer)
@@ -24,13 +36,25 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             }
         }
 
-        public async Task<bool> Exists(string username, string password)
+        public int CountViewers()
         {
             try
             {
-                return await dbContext.Users.FirstOrDefaultAsync
+                return dbContext.Users.Count(user => user.IsAdmin == false);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public bool Exists(string email, string password)
+        {
+            try
+            {
+                return dbContext.Users.FirstOrDefault
                     (
-                        user => user.Name == username &&
+                        user => user.Email == email &&
                                 user.Password == password
                     ) != null;
             }
@@ -73,14 +97,70 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             }
         }
 
+        public Models.User? Find(string email, string password)
+        {
+            try
+            {
+                return dbContext.Users.Find(delegate (Models.User user)
+                {
+                    if (user.Email == email && user.Password == password)
+                        return user;
+                    return null;
+                });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
         public IEnumerable<Models.User> GetAllViewers()
         {
             try
             {
-                return dbContext.Users.ToList().FindAll
-                    (user => user.IsAdmin = false);
+                return GetAll().Where
+                    (user => user.IsAdmin == false);
             }
             catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public IEnumerable<Models.Article> GetPublishedArticles(int publisherId)
+        {
+            try
+            {
+                return articleServices.GetAll().
+                    Where(article => article.PublisherId == publisherId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public IEnumerable<Models.Message> GetDiscussion(int senderId, int receiverId)
+        {
+            try
+            {
+                return messageServices.FilterBySenderId(senderId).
+                    Where(message => message.ReceiverId == receiverId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public IEnumerable<Models.UserArticle> GetViewedArticles(int userId)
+        {
+            try
+            {
+                return uaServices.GetAll().
+                    Where(userArticle => userArticle.UserId == userId);
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Erreur : " + ex.Message);
             }
@@ -90,8 +170,13 @@ namespace SiteVitrineEbeniste.Datas.Services.User
         {
             try
             {
-                dbContext.Users.Remove(viewer);
-                dbContext.SaveChanges();
+                if (!Exists(viewer.Id))
+                    throw new Exception("Utilisateur inexistant !");
+                else
+                {
+                    dbContext.Users.Remove(viewer);
+                    dbContext.SaveChanges();
+                }
             }
             catch(Exception ex)
             {
@@ -106,7 +191,7 @@ namespace SiteVitrineEbeniste.Datas.Services.User
             try
             {
                 if (!Exists(id))
-                    return null;
+                    throw new Exception("Utilisateur inexistant !");
                 else
                 {
                     dbContext.Users.Update(viewer);
@@ -115,6 +200,18 @@ namespace SiteVitrineEbeniste.Datas.Services.User
                 }
             }
             catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.Message);
+            }
+        }
+
+        public IEnumerable<Models.User> GetAll()
+        {
+            try
+            {
+                return dbContext.Users.ToList();
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Erreur : " + ex.Message);
             }
